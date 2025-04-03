@@ -1,0 +1,44 @@
+/* Reset CSS */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/* Remove list styles on ul and ol elements */
+ul,
+ol {
+	list-style: none;
+}
+
+/* Remove default button styles */
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+/* Ensure media elements fit within their container */
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Remove default anchor styles */
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Ensure consistent font rendering */
+body {
+	font-family: sans-serif;
+	line-height: 1.5;
+	background-color: #fff;
+	color: #000;
+}

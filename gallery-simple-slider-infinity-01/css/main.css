@@ -1,0 +1,63 @@
+#page-gallery header {
+	display: flex;
+	justify-content: center;
+}
+
+#page-gallery .gallery {
+	position: relative;
+	width: 600px;
+	margin: 0 auto;
+}
+#page-gallery .gallery .gallery__left,
+#page-gallery .gallery .gallery__right {
+	position: absolute;
+	background-color: aliceblue;
+	top: 50%;
+	z-index: 1;
+	transform: translateY(-50%);
+	padding: 6px 16px;
+	font-size: 20px;
+	user-select: none;
+}
+#page-gallery .gallery .gallery__left {
+	left: 0;
+}
+#page-gallery .gallery .gallery__right {
+	right: 0;
+}
+#page-gallery .gallery .galler__keyhole {
+	overflow: hidden;
+}
+
+#page-gallery .gallery .gallery__ul {
+	display: flex;
+}
+:root {
+	--animationTime: 0.5s;
+}
+#page-gallery .gallery .gallery__ul.animate_left {
+	transition: var(--animationTime);
+	transform: translateX(-100%);
+}
+#page-gallery .gallery .gallery__ul.animate_right {
+	transition: var(--animationTime);
+	transform: translateX(0%) !important;
+}
+#page-gallery .gallery .gallery__ul.move_right {
+	transform: translateX(-100%);
+}
+
+#page-gallery .gallery .gallery__ul li {
+	flex: 1 0 100%;
+}
+/* 
+1. 	flex-grow: 1 – Elementet vil vokse og optage al ledig plads i flex-containeren 
+	i forhold til andre elementer med en flex-grow-værdi større end 0.
+2. flex-shrink: 0 – Elementet vil ikke krympe, selv hvis der er begrænset plads i containeren.
+3. flex-basis: 100% – Elementet starter med en grundlæggende bredde på 100% af containeren.
+*/
+#page-gallery .gallery .gallery__ul li img {
+	width: 100%;
+	display: block;
+	object-fit: cover;
+}
