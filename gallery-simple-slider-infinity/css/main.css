@@ -1,0 +1,42 @@
+#page-gallery header {
+	display: flex;
+	justify-content: center;
+}
+
+#page-gallery .gallery {
+	position: relative;
+	width: 600px;
+	margin: 0 auto;
+}
+#page-gallery .gallery .gallery__left,
+#page-gallery .gallery .gallery__right {
+	position: absolute;
+	background-color: aliceblue;
+	top: 50%;
+	z-index: 1;
+	transform: translateY(-50%);
+	padding: 6px 16px;
+	font-size: 20px;
+	user-select: none;
+}
+#page-gallery .gallery .gallery__left {
+	left: 0;
+}
+#page-gallery .gallery .gallery__right {
+	right: 0;
+}
+#page-gallery .gallery .galler__keyhole {
+	overflow: hidden;
+}
+
+#page-gallery .gallery .gallery__ul {
+	display: flex;
+}
+#page-gallery .gallery .gallery__ul li {
+	flex: 1 0 100%;
+}
+#page-gallery .gallery .gallery__ul li img {
+	width: 100%;
+	display: block;
+	object-fit: cover;
+}

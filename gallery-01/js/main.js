@@ -28,17 +28,15 @@ function createDots(gallery) {
 goLeft.addEventListener("click", animateLeft);
 goRight.addEventListener("click", animateRight);
 
-//
 let currentIndex = 0;
 let totalIndex = li.length;
 
 // FUNCTIONS
 
-function animateLeft(event) {
+function animateLeft() {
 	ul.style.transition = "transform .5s ease-in-out";
 	ul.style.transform = `translateX(-${100}%)`;
-	ul.addEventListener("transitionend", (event) => handleAnimationLeft(), { once: true });
-	console.log(currentIndex);
+	ul.addEventListener("transitionend", () => handleAnimationLeft(), { once: true });
 	currentIndex = countCurrentSlide(currentIndex, "left", totalIndex);
 	updateActiveElementClass(dotsArray, currentIndex + 1);
 }
@@ -47,12 +45,9 @@ function handleAnimationLeft() {
 	shiftFirstToLast();
 	ul.style.transition = "";
 	ul.style.transform = "";
-	ul.removeEventListener("transitionend", handleAnimationLeft);
-
-	//changeActiveDotLeftRight("left");
 }
 
-function animateRight(event) {
+function animateRight() {
 	shiftLastToFirst(); // Move last <li> to front immediately
 
 	ul.style.transition = "none"; // Disable transition for instant position change
@@ -77,43 +72,13 @@ function countCurrentSlide(currentIndex, direction, maxNumber) {
 			myNumber++;
 		}
 	} else if (direction === "right") {
-		console.log(myNumber);
-
 		if (myNumber == 0) {
 			myNumber = totalIndex - 1;
 		} else {
 			myNumber = myNumber - 1;
 		}
 	}
-	// console.log(myNumber);
 	return myNumber;
-}
-
-function changeActiveDotLeftRight(direction) {
-	let activeIndex = findActiveDot();
-	if ((direction = "left")) {
-		dotsArray.forEach((dot, index) => {
-			if (index == activeIndex) {
-				dot.classList.remove("active");
-			} else if (index == activeIndex - 1) {
-				dot.classList.add("active");
-			}
-		});
-		// dotsArray.map((dot)=>{
-		// 	console.log(dot);
-
-		// })
-	}
-}
-
-function findActiveDot() {
-	let active = null;
-	dotsArray.forEach((dot, index) => {
-		if (dot.classList.contains("active")) {
-			active = index;
-		}
-	});
-	return active;
 }
 
 dotsArray.forEach((dot, index) => {
@@ -124,9 +89,6 @@ function handleDotsClick(index) {
 	let difference = currentIndex - index;
 	let steps = 0;
 	let direction = 0;
-	// console.log(index);
-	// console.log(`currentIndex = ${currentIndex}`);
-	// console.log(`difference = ${difference}`);
 
 	// tallet er et minus tal
 	if (difference < 0) {
@@ -138,49 +100,43 @@ function handleDotsClick(index) {
 		direction = "right";
 		steps = Math.abs(difference);
 	}
-	// tallet er nul
-	else {
-		console.log(`difference = ${difference}`);
-	}
-	let moveLeft = 100 * steps;
+	let move = 100 * steps;
 
 	// left
 	if (direction === "left") {
 		// udfør først animationen
 		ul.style.transition = "transform .5s ease-in-out";
-		ul.style.transform = `translateX(-${moveLeft}%)`;
+		ul.style.transform = `translateX(-${move}%)`;
 		// Når animationen er færdig, bytters der om på li elementerne
-		ul.addEventListener("transitionend", (event) => handleDotClickAnimationLeftEnd(steps), { once: true });
+		ul.addEventListener("transitionend", () => handleDotClickAnimationLeftEnd(steps), { once: true });
 	} else if (direction === "right") {
 		// Byt om på li DOM elementerne
 		for (i = 1; i <= steps; i++) {
 			shiftLastToFirst();
 		}
-		ul.style.transform = `translateX(-${moveLeft}%)`;
+		ul.style.transform = `translateX(-${move}%)`;
 		setTimeout(() => {
 			ul.style.transition = "transform .5s ease-in-out";
-			ul.style.transform = `translateX(${currentIndex}%)`;
-		}, 10);
+			ul.style.transform = `translateX(0%)`;
+			ul.addEventListener("transitionend", () => handleDotClickAnimationRightEnd(steps), { once: true });
+		}, 30);
 	}
 
 	updateActiveElementClass(dotsArray, index + 1);
 	currentIndex = index;
 }
+
 // Handle click dots
 function handleDotClickAnimationLeftEnd(steps) {
 	for (i = 1; i <= steps; i++) {
 		shiftFirstToLast();
 	}
 	ul.style = "";
-	ul.removeEventListener("transitionend", handleDotClickAnimationLeftEnd);
+	//ul.removeEventListener("transitionend", handleDotClickAnimationLeftEnd);
 }
 
 function handleDotClickAnimationRightEnd(steps) {
-	for (i = 1; i <= steps; i++) {
-		shiftLastToFirst();
-	}
 	ul.style = "";
-	ul.removeEventListener("transitionend", handleDotClickAnimationLeftEnd);
 }
 
 // Shift elements : Direction RIGHT
@@ -208,5 +164,4 @@ function updateActiveElementClass(dotsArray, currentIndex) {
 			dot.classList.remove("active");
 		}
 	});
-	console.log(dotsArray);
 }
